@@ -17,9 +17,10 @@ with open("word_dict_6.txt", "r") as file:
         words.append(temp_line)
     file.close()
 
-test = Wordle(words)
-test.start_game()
+# test = Wordle(words)
+# test.start_game()
 
-# test = Sudoku()
-# test.make_board()
-# test.print_board()
+test = Sudoku()
+test.make_board()
+test.print_board()
+test.check_boxes()
