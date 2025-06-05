@@ -1,7 +1,18 @@
+
 ##main file
 from wordle import Wordle
 from sudoku import Sudoku
+from tictactoe import tictactoe
 import re
+'''
+TODO:
+-finish sudoku
+-add a timer mode to wordle
+-add the pygame gui and get the games interacting with it
+-make tic-tac-toe
+    -make ai for this
+-make minesweeper
+'''
 
 total_words = 145473
 words = []
@@ -22,5 +33,8 @@ with open("word_dict_6.txt", "r") as file:
 
 test = Sudoku()
 test.make_board()
-test.print_board()
-test.check_boxes()
+#test.print_board()
+
+# test = tictactoe()
+# test.print_board()
+# test.start_game()
