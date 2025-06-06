@@ -6,15 +6,13 @@ from tictactoe import tictactoe
 import re
 '''
 TODO:
--finish sudoku
 -add a timer mode to wordle
 -add the pygame gui and get the games interacting with it
 -make tic-tac-toe
-    -make ai for this
+    -fix the weird quirks of the min-max alg
 -make minesweeper
 '''
 
-total_words = 145473
 words = []
 print("Loading word bank, this may take a while")
 with open("word_dict_6.txt", "r") as file:
@@ -33,8 +31,12 @@ with open("word_dict_6.txt", "r") as file:
 
 test = Sudoku()
 test.make_board()
-#test.print_board()
+test.ensure_solvability(3)
 
-# test = tictactoe()
+# test = tictactoe(True)
 # test.print_board()
-# test.start_game()
+# while True:
+#     print("Reminder, everything starts at 0, not 1 for entry validity")
+#     row = int(input("Enter row: "))
+#     col = int(input("Enter col: "))
+#     test.game_loop(row, col, 3)

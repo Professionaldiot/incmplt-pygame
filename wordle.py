@@ -32,7 +32,7 @@ class Wordle:
     def __select_new_word(self):
         word = randint(0, len(self.__dict_list))
         self.__word = self.__dict_list[word].lower()
-        print(self.__word)
+        self.print_word()
 
     def __get_word(self) -> str:
         return self.__word
