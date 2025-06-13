@@ -28,7 +28,7 @@ class Sudoku:
                     line_str += "   "
             print(line_str)
 
-    def ensure_solvability(self, diff_as_num):
+    def ensure_solvability(self, diff_as_num) -> list:
         #essentially the thought goes like this, to ensure a board is solvable
         #first take the fully solven board (which we have with make_board)
         #then systematically remove numbers that don't interfere with the logic of
