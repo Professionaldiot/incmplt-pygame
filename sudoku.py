@@ -1,12 +1,57 @@
 #sudoku
 from random import randint
 from copy import deepcopy
+import pygame
 
 class Sudoku:
+    #things to do:
+    #add a save function in this class
+    #check if the player has placed an incorrect piece and tell them
+    #when the player gets the right solution, generate a new board
     def __init__(self):
         self.__board = []
         self.__r_c_valid = {}
         self.__init_board()
+        self.__init_dict()
+
+    def render_sudoku(self, board, screen):
+        font = pygame.font.Font(None, 64)
+        #this has to take each item and render it as text on the screen
+
+        #draws the white squares for each of the boxes
+        for i in range(9):
+            for j in range(9):
+                behind = pygame.Rect(355 + (i * 60.3), 70 + (j * 70), 55, 63)
+                pygame.draw.rect(screen, (255, 255, 255), behind)
+            
+         
+
+        for i in range(9):
+            rts = ""
+            for j in range(9):
+                if board[i][j] != "0":
+                    rts += str(board[i][j]) + "   "
+                else:
+                    rts += "     "
+            text = font.render(rts, True, (10, 10, 10))
+            textpos = text.get_rect(centerx = screen.get_width() / 2, y = 80 + (i * 70))
+            screen.blit(text, textpos)
+
+    def __init_dict(self):
+        #initializes the dicts for storing the numbers at the empty spaces and the notes for those spaces
+        print()
+    
+    def __update_boxes(self):
+        #this function will do many things, but the main function is to
+        #take user input and then validate it at that box location, after which
+        #it then needs to draw that to the screen, this will be done via a dictionary
+        #which holds the num for that space, only spaces that don't have numbers will
+        #appear in the dict, so therefore, you can only modify those
+        print()
+
+    def __update_notes(self):
+        #this does the same thing as the above function, but for notes, which are rendered at a smaller font size
+        print()
     
     def __init_board(self):
         for i in range(9):

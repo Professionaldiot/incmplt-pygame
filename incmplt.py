@@ -40,9 +40,7 @@ with open("word_dict_5.txt", "r") as file:
 #     col = int(input("Enter col: "))
 #     test.game_loop(row, col, 3)
 
-test = Sudoku()
-test.make_board()
-test.ensure_solvability(1)
+
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -64,6 +62,10 @@ list_of_screens = ["main", "select", "settings", "quit", "main", "sudoku"]
 new_menu = "main"
 back_num = 0
 
+test = Sudoku()
+test.make_board()
+sud_board = test.ensure_solvability(3)
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -75,6 +77,7 @@ while running:
             running = False
     
     screen.fill("purple")
+    
 
     if change_screen:
         change_screen = False
@@ -153,7 +156,15 @@ while running:
             screen_list = [0, 0, 0, 0, 0]
             screen_list[4] = back_num
             
-    
+    if new_menu == "sudoku":
+        #this draws text to the screen in the middle, 10 pixels down
+        #10 pixels down with a font size of 64 is 74 pixels from the top
+        #720 - 74 = 646
+        font = pygame.font.Font(None, 64)
+        text = font.render("Sudoku", True, (10, 10, 10))
+        textpos = text.get_rect(centerx = screen.get_width() / 2, y = 10)
+        screen.blit(text, textpos)
+        test.render_sudoku(sud_board, screen)
     pygame.display.flip()
 
     clock.tick(60)
