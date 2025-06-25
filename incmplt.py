@@ -64,7 +64,7 @@ back_num = 0
 
 test = Sudoku()
 test.make_board()
-sud_board = test.ensure_solvability(3)
+sud_board = test.ensure_solvability(2)
 
 while running:
     # poll for events
@@ -88,6 +88,7 @@ while running:
     window = pygame.display.get_surface()
     pos = pygame.mouse.get_pos()
     pressing = pygame.mouse.get_pressed(num_buttons = 3)
+
     
     if (len(screen_list) > 0) and screen_list[0] < most_recent:
         new_menu = list_of_screens[screen_list[0]]
@@ -165,6 +166,7 @@ while running:
         textpos = text.get_rect(centerx = screen.get_width() / 2, y = 10)
         screen.blit(text, textpos)
         test.render_sudoku(sud_board, screen)
+        test.update_boxes(pos, screen)
     pygame.display.flip()
 
     clock.tick(60)

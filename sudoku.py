@@ -2,6 +2,7 @@
 from random import randint
 from copy import deepcopy
 import pygame
+from text_box import text_box
 
 class Sudoku:
     #things to do:
@@ -12,7 +13,8 @@ class Sudoku:
         self.__board = []
         self.__r_c_valid = {}
         self.__init_board()
-        self.__init_dict()
+        self.__text_dict = {}
+        self.__notes_dict = {}
 
     def render_sudoku(self, board, screen):
         font = pygame.font.Font(None, 64)
@@ -21,10 +23,8 @@ class Sudoku:
         #draws the white squares for each of the boxes
         for i in range(9):
             for j in range(9):
-                behind = pygame.Rect(355 + (i * 60.3), 70 + (j * 70), 55, 63)
+                behind = pygame.Rect(355 + (i * 60.3), 70 + (j * 70), 56, 63)
                 pygame.draw.rect(screen, (255, 255, 255), behind)
-            
-         
 
         for i in range(9):
             rts = ""
@@ -32,22 +32,39 @@ class Sudoku:
                 if board[i][j] != "0":
                     rts += str(board[i][j]) + "   "
                 else:
+                    #make the space empty, and intialize a text box where the box starts out, which is the calculation above
                     rts += "     "
+                    #create the box for text and notes
+                    x = 355 + (j * 60.3)
+                    y = 70 + (i * 70)
+                    self.__text_dict[(i, j)] = text_box(x, y, 56, 63, "")
+                    self.__notes_dict[(i, j)] = text_box(x, y, 56, 63, "")
+
             text = font.render(rts, True, (10, 10, 10))
             textpos = text.get_rect(centerx = screen.get_width() / 2, y = 80 + (i * 70))
             screen.blit(text, textpos)
 
-    def __init_dict(self):
-        #initializes the dicts for storing the numbers at the empty spaces and the notes for those spaces
-        print()
-    
-    def __update_boxes(self):
+    def update_boxes(self, mouse_pos, screen):
         #this function will do many things, but the main function is to
         #take user input and then validate it at that box location, after which
         #it then needs to draw that to the screen, this will be done via a dictionary
         #which holds the num for that space, only spaces that don't have numbers will
         #appear in the dict, so therefore, you can only modify those
-        print()
+        font = pygame.font.Font(None, 64)
+        for i in range(9):
+            temp = ""
+            for j in range(9):
+                if self.__board[i][j] == "0":
+                    if self.__text_dict[(i, j)].check_mouse_pos(mouse_pos):
+                        self.__text_dict[(i, j)].update_text("_")
+                    else:
+                        self.__text_dict[(i, j)].update_text("  ")
+                    temp += str(self.__text_dict[(i, j)].get_text()) + "   "
+                else:
+                    temp += "     "
+            text = font.render(temp, True, (50, 170, 255))
+            textpos = text.get_rect(centerx = screen.get_width() / 2, y = 80 + (i * 70))
+            screen.blit(text, textpos)
 
     def __update_notes(self):
         #this does the same thing as the above function, but for notes, which are rendered at a smaller font size
